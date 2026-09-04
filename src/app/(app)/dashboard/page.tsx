@@ -29,10 +29,8 @@ export default function DashboardPage() {
   } = useCampusStore();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/login");
-    }
-  }, [isAuthenticated, router]);
+    syncAll();
+  }, []);
 
   const pendingAssignments = assignments.filter((a) => a.status !== "completed");
   const overallAttendance = attendance?.overall ?? null;

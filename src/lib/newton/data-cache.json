@@ -1,0 +1,90 @@
+{
+  "token": "Zxj93ytPeu5W78hI4maKWdrHvUI96h",
+  "profile": {
+    "name": "Sanghamitra Sarangi",
+    "email": "e25b070843@adypu.edu.in",
+    "rollNumber": "e25b070843",
+    "semester": "1",
+    "department": "CS + AIML",
+    "batch": "NSTP'25-CS+AIML",
+    "avatarUrl": ""
+  },
+  "attendance": {
+    "overall": 72.0,
+    "attendedCount": 59,
+    "totalCount": 82,
+    "subjects": [
+      {
+        "id": "linear-algebra",
+        "name": "Linear Algebra & Matrices",
+        "faculty": "Prof. NST",
+        "attended": 16,
+        "total": 21,
+        "percentage": 76.2
+      },
+      {
+        "id": "db-sql",
+        "name": "Database Engineering (SQL)",
+        "faculty": "Prof. NST",
+        "attended": 18,
+        "total": 24,
+        "percentage": 75.0
+      },
+      {
+        "id": "backend-express",
+        "name": "Backend Engineering (Express & REST)",
+        "faculty": "Prof. NST",
+        "attended": 14,
+        "total": 20,
+        "percentage": 70.0
+      },
+      {
+        "id": "dsa-algo",
+        "name": "Data Structures & Algorithms",
+        "faculty": "Prof. NST",
+        "attended": 11,
+        "total": 17,
+        "percentage": 64.7
+      }
+    ]
+  },
+  "assignments": [
+    {
+      "id": "asgn-1",
+      "title": "LIMIT, SQL Functions, Aggregate Functions",
+      "subject": "Database Engineering",
+      "description": "In Class - Deadline: Sep 5, 2026, 10:10 am",
+      "dueDate": "2026-09-05T10:10:00",
+      "status": "todo",
+      "priority": "high"
+    },
+    {
+      "id": "asgn-2",
+      "title": "Express JS, REST API(s), Resource Based URL(s)",
+      "subject": "Backend Engineering",
+      "description": "In Class - Due tomorrow",
+      "dueDate": "2026-09-05T23:59:00",
+      "status": "todo",
+      "priority": "high"
+    },
+    {
+      "id": "asgn-3",
+      "title": "HAVING Clause, SQL Conditional Logic, CASE Statements",
+      "subject": "Database Engineering",
+      "description": "Post Class practice exercises",
+      "dueDate": "2026-09-06T18:00:00",
+      "status": "in_progress",
+      "priority": "medium"
+    },
+    {
+      "id": "asgn-4",
+      "title": "Backtracking & Recursion Practice",
+      "subject": "Data Structures & Algorithms",
+      "description": "N-Queens, Combinations, and Maze Solver",
+      "dueDate": "2026-09-07T23:59:00",
+      "status": "todo",
+      "priority": "medium"
+    }
+  ],
+  "syncedAt": 1788437000000
+}

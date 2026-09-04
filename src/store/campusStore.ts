@@ -48,7 +48,18 @@ export const useCampusStore = create<CampusStore>()(
       syncAll: async () => {
         set({ isSyncing: true, syncError: null });
         try {
-          // Fetch all data in parallel
+          // Check direct sync cache first
+          const directRes = await fetch("/api/sync/direct").then((r) => r.json()).catch(() => null);
+          if (directRes?.success && directRes.data) {
+            const { profile, attendance, assignments } = directRes.data;
+            if (profile) set({ profile });
+            if (attendance) set({ attendance });
+            if (assignments) set({ assignments });
+            set({ lastSyncedAt: Date.now(), isSyncing: false });
+            return;
+          }
+
+          // Fallback to individual endpoints
           const [profileRes, attendanceRes, assignmentsRes] = await Promise.allSettled([
             fetch("/api/newton/profile").then((r) => r.json()),
             fetch("/api/newton/attendance").then((r) => r.json()),
