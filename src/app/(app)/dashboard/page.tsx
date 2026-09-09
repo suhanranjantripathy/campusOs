@@ -15,6 +15,8 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { useCampusStore } from "@/store/campusStore";
+import { useMilestonesStore } from "@/store/milestoneStore";
+import { MILESTONE_TRACKS } from "@/data/milestonesData";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -28,13 +30,22 @@ export default function DashboardPage() {
     syncAll,
   } = useCampusStore();
 
+  const { activeTrackId, getTrackCompletion, getCurrentMilestoneForTrack } = useMilestonesStore();
+  const activeTrackObj = MILESTONE_TRACKS.find((t) => t.id === activeTrackId) || MILESTONE_TRACKS[0];
+  const { percentage: milestonePercentage, completedCount: milestoneCompletedCount } = getTrackCompletion(activeTrackId);
+  const currentMilestoneCode = getCurrentMilestoneForTrack(activeTrackId);
+
   useEffect(() => {
     syncAll();
   }, []);
 
   const pendingAssignments = assignments.filter((a) => a.status !== "completed");
   const overallAttendance = attendance?.overall ?? null;
-  const firstName = profile?.name?.split(" ")[0] ?? "Student";
+  const studentName =
+    profile?.name && profile.name !== "Sanghamitra Sarangi"
+      ? profile.name
+      : "Suhan Ranjan Tripathy";
+  const firstName = studentName.split(" ")[0];
 
   const hour = new Date().getHours();
   const greeting =
@@ -132,14 +143,24 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="glass">
+        <Card
+          className="glass cursor-pointer hover:border-primary/40 transition-colors"
+          onClick={() => router.push("/milestones")}
+        >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Milestone Progress</CardTitle>
             <Target className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">—</div>
-            <p className="text-xs text-muted-foreground mt-1">Add a milestone to track</p>
+            <div className="text-2xl font-bold flex items-center gap-2">
+              <span>{currentMilestoneCode}</span>
+              <span className="text-sm font-medium text-muted-foreground">
+                ({milestonePercentage}%)
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1 truncate">
+              {activeTrackObj.name} · {milestoneCompletedCount}/5 Cleared
+            </p>
           </CardContent>
         </Card>
       </div>

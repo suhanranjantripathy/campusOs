@@ -9,16 +9,38 @@ import { useEffect } from "react";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { profile, attendance, lastSyncedAt, isSyncing, syncAll, logout } = useCampusStore();
+  const { profile, setProfile, attendance, lastSyncedAt, isSyncing, syncAll, logout } = useCampusStore();
 
   useEffect(() => {
+    if (profile?.name === "Sanghamitra Sarangi" || !profile?.name) {
+      setProfile({
+        name: "Suhan Ranjan Tripathy",
+        email: profile?.email || "e25b070843@adypu.edu.in",
+        rollNumber: profile?.rollNumber || "e25b070843",
+        semester: "3",
+        department: "CS + AIML",
+        batch: profile?.batch || "NSTP'25-CS+AIML",
+        avatarUrl: profile?.avatarUrl || "",
+      });
+    }
     syncAll();
   }, []);
 
-  const studentName = profile?.name || "Sanghamitra Sarangi";
+  const studentName =
+    profile?.name && profile.name !== "Sanghamitra Sarangi"
+      ? profile.name
+      : "Suhan Ranjan Tripathy";
   const studentEmail = profile?.email || "e25b070843@adypu.edu.in";
   const batch = profile?.batch || "NSTP'25-CS+AIML";
   const rollNumber = profile?.rollNumber || "e25b070843";
+  const semester = profile?.semester || "3";
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return "ST";
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
 
   const handleLogout = () => {
     logout();
@@ -60,8 +82,8 @@ export default function ProfilePage() {
         <CardContent className="relative pt-0 pb-8 px-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-12 gap-4">
             <div className="flex items-end gap-4">
-              <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-primary text-3xl font-bold text-primary-foreground shadow-2xl ring-4 ring-background">
-                {studentName.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-[#00a389] text-3xl font-bold text-white shadow-2xl ring-4 ring-background">
+                {getInitials(studentName)}
               </div>
               <div className="space-y-1 mb-1">
                 <h2 className="text-2xl font-bold">{studentName}</h2>
@@ -104,7 +126,7 @@ export default function ProfilePage() {
               <Calendar className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-xs text-muted-foreground font-medium">Academic Year</p>
-                <p className="text-sm font-semibold">Semester 1 (2026)</p>
+                <p className="text-sm font-semibold">Semester {semester} (2026)</p>
               </div>
             </div>
 
