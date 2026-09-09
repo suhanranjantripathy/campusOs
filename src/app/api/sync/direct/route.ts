@@ -36,20 +36,80 @@ export async function POST(req: NextRequest) {
       assignmentsCount: body.assignments?.length,
     });
 
+    // Validate & normalize payload
+    const normalizedData = {
+      token: body.token || "",
+      refreshToken: body.refreshToken || "",
+      courseHash: body.courseHash || "0rsk0a0teyqh",
+      profile: {
+        name: body.profile?.name || "Suhan Ranjan Tripathy",
+        email: body.profile?.email || "e25b070843@adypu.edu.in",
+        rollNumber: body.profile?.rollNumber || "e25b070843",
+        semester: body.profile?.semester || "3",
+        department: body.profile?.department || "CS + AIML",
+        batch: body.profile?.batch || "NSTP'25-CS+AIML",
+        avatarUrl: body.profile?.avatarUrl || "",
+        xp: typeof body.profile?.xp === "number" ? body.profile.xp : 4273,
+      },
+      attendance: (() => {
+        const rawAtt = body.attendance || {};
+        const subjects = Array.isArray(rawAtt.subjects) ? rawAtt.subjects.map((s: any) => {
+          const attended = typeof s.attended === "number" ? s.attended : 0;
+          const total = typeof s.total === "number" ? s.total : 0;
+          const percentage = total > 0 ? Number(((attended / total) * 100).toFixed(1)) : 0;
+          return {
+            id: s.id || String(s.code || s.name || "").toLowerCase().replace(/[^a-z0-9]/g, "-"),
+            code: s.code || s.name?.slice(0, 4) || "",
+            name: s.name || "Subject",
+            faculty: s.faculty || "NST Faculty",
+            attended,
+            total,
+            percentage: typeof s.percentage === "number" ? s.percentage : percentage,
+          };
+        }) : [];
+
+        let attendedCount = typeof rawAtt.attendedCount === "number" ? rawAtt.attendedCount : undefined;
+        let totalCount = typeof rawAtt.totalCount === "number" ? rawAtt.totalCount : undefined;
+
+        if (attendedCount === undefined || totalCount === undefined) {
+          attendedCount = subjects.reduce((sum: number, s: any) => sum + s.attended, 0);
+          totalCount = subjects.reduce((sum: number, s: any) => sum + s.total, 0);
+        }
+
+        let overall = typeof rawAtt.overall === "number" ? rawAtt.overall : undefined;
+        if (overall === undefined) {
+          overall = totalCount > 0 ? Number(((attendedCount / totalCount) * 100).toFixed(1)) : 72.0;
+        }
+
+        return {
+          overall,
+          overallPercentage: overall,
+          attendedCount,
+          totalCount,
+          attendedLectures: attendedCount,
+          totalLectures: totalCount,
+          subjects,
+          lectures: Array.isArray(rawAtt.lectures) ? rawAtt.lectures : [],
+        };
+      })(),
+      assignments: Array.isArray(body.assignments) ? body.assignments : [],
+      syncedAt: Date.now(),
+    };
+
     // Ensure directory exists
     const dir = path.dirname(CACHE_FILE);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    // Save to disk
-    fs.writeFileSync(CACHE_FILE, JSON.stringify(body, null, 2), "utf-8");
+    // Save normalized clean JSON to disk
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(normalizedData, null, 2), "utf-8");
 
     const res = NextResponse.json(
       {
         success: true,
         message: "Data synced successfully to CampusOS!",
-        data: body,
+        data: normalizedData,
       },
       { headers: corsHeaders }
     );

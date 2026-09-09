@@ -114,28 +114,40 @@ export default function AssignmentsPage() {
             className="glass border-white/10 hover:border-primary/40 transition-all shadow-md group"
           >
             <CardHeader className="pb-3">
-              <div className="flex items-start justify-between gap-2">
-                <Badge
-                  variant="outline"
-                  className={
-                    task.priority === "high"
-                      ? "border-red-500/40 bg-red-500/10 text-red-400"
-                      : task.priority === "medium"
-                      ? "border-amber-500/40 bg-amber-500/10 text-amber-400"
-                      : "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
-                  }
-                >
-                  {task.priority.toUpperCase()} PRIORITY
-                </Badge>
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+              <div className="flex items-start justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <Badge
+                    variant="outline"
+                    className={
+                      task.priority === "high"
+                        ? "border-red-500/40 bg-red-500/10 text-red-400"
+                        : task.priority === "medium"
+                        ? "border-amber-500/40 bg-amber-500/10 text-amber-400"
+                        : "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+                    }
+                  >
+                    {task.priority.toUpperCase()} PRIORITY
+                  </Badge>
+                  {task.tag && (
+                    <Badge variant="secondary" className="text-[10px] font-medium bg-primary/15 text-primary border border-primary/25">
+                      {task.tag}
+                    </Badge>
+                  )}
+                  {task.solvedText && (
+                    <Badge variant="outline" className="text-[10px] font-semibold border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                      {task.solvedText}
+                    </Badge>
+                  )}
+                </div>
+                <span className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
                   <Clock className="h-3 w-3" />
                   {task.dueDate}
                 </span>
               </div>
-              <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors mt-2">
+              <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors mt-2 leading-snug">
                 {task.title}
               </CardTitle>
-              <CardDescription className="text-xs font-medium text-foreground/80">
+              <CardDescription className="text-xs font-semibold text-foreground/80">
                 {task.subject}
               </CardDescription>
             </CardHeader>
@@ -148,10 +160,10 @@ export default function AssignmentsPage() {
                   Status: {task.status.replace("_", " ")}
                 </span>
                 <a
-                  href="https://my.newtonschool.co"
+                  href={task.solveUrl || "https://my.newtonschool.co"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                  className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline hover:text-primary/80 transition-colors"
                 >
                   Solve on Newton <ExternalLink className="h-3 w-3" />
                 </a>

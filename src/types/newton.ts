@@ -8,20 +8,38 @@ export interface NewtonProfile {
   department: string;
   batch: string;
   avatarUrl: string;
+  xp?: number;
 }
 
 export interface NewtonAttendanceSubject {
   id: string;
   name: string;
+  code?: string;
   faculty: string;
   attended: number;
   total: number;
   percentage: number;
 }
 
+export interface NewtonLectureRecord {
+  id: string;
+  title: string;
+  subject?: string;
+  date: string;
+  duration?: string;
+  attended: boolean;
+  notesIncluded?: boolean;
+}
+
 export interface NewtonAttendance {
   overall: number;
+  overallPercentage?: number;
+  attendedCount?: number;
+  totalCount?: number;
+  attendedLectures?: number;
+  totalLectures?: number;
   subjects: NewtonAttendanceSubject[];
+  lectures?: NewtonLectureRecord[];
 }
 
 export interface NewtonAssignment {
@@ -32,6 +50,9 @@ export interface NewtonAssignment {
   dueDate: string;
   status: "todo" | "in_progress" | "completed";
   priority: "low" | "medium" | "high";
+  tag?: "In Class" | "Post Class" | "Quiz" | "Contest" | "Homework" | string;
+  solvedText?: string;
+  solveUrl?: string;
   submissionLink?: string;
 }
 
@@ -42,6 +63,9 @@ export interface NewtonSyncResult<T> {
 }
 
 export interface SessionToken {
-  cookies: string;
+  cookies?: string;
+  token?: string;
+  refreshToken?: string;
   timestamp: number;
 }
+

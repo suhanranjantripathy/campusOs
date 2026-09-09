@@ -1,5 +1,7 @@
 {
   "token": "Zxj93ytPeu5W78hI4maKWdrHvUI96h",
+  "refreshToken": "l3Zb7jNbcLsJWwGBtelc1iFB3lhnvA",
+  "courseHash": "0rsk0a0teyqh",
   "profile": {
     "name": "Suhan Ranjan Tripathy",
     "email": "e25b070843@adypu.edu.in",
@@ -7,84 +9,129 @@
     "semester": "3",
     "department": "CS + AIML",
     "batch": "NSTP'25-CS+AIML",
-    "avatarUrl": ""
+    "avatarUrl": "",
+    "xp": 4273
   },
   "attendance": {
     "overall": 72.0,
+    "overallPercentage": 72.0,
     "attendedCount": 59,
     "totalCount": 82,
+    "attendedLectures": 59,
+    "totalLectures": 82,
     "subjects": [
       {
-        "id": "linear-algebra",
-        "name": "Linear Algebra & Matrices",
-        "faculty": "Prof. NST",
-        "attended": 16,
-        "total": 21,
-        "percentage": 76.2
-      },
-      {
-        "id": "db-sql",
-        "name": "Database Engineering (SQL)",
-        "faculty": "Prof. NST",
-        "attended": 18,
-        "total": 24,
-        "percentage": 75.0
-      },
-      {
-        "id": "backend-express",
-        "name": "Backend Engineering (Express & REST)",
-        "faculty": "Prof. NST",
+        "id": "ada",
+        "code": "ADA",
+        "name": "Analysis & Design of Algorithms (ADA)",
+        "faculty": "NST Faculty",
         "attended": 14,
         "total": 20,
         "percentage": 70.0
       },
       {
-        "id": "dsa-algo",
-        "name": "Data Structures & Algorithms",
-        "faculty": "Prof. NST",
-        "attended": 11,
-        "total": 17,
-        "percentage": 64.7
+        "id": "asd",
+        "code": "ASD",
+        "name": "Applied Software Development (Express & REST)",
+        "faculty": "NST Faculty",
+        "attended": 16,
+        "total": 22,
+        "percentage": 72.7
+      },
+      {
+        "id": "de",
+        "code": "DE",
+        "name": "Database Engineering (SQL & Optimization)",
+        "faculty": "NST Faculty",
+        "attended": 17,
+        "total": 22,
+        "percentage": 77.3
+      },
+      {
+        "id": "maths-3",
+        "code": "Maths 3",
+        "name": "Applied Linear Algebra & Matrix Theory",
+        "faculty": "NST Faculty",
+        "attended": 12,
+        "total": 18,
+        "percentage": 66.7
       }
-    ]
+    ],
+    "lectures": []
   },
   "assignments": [
     {
-      "id": "asgn-1",
-      "title": "LIMIT, SQL Functions, Aggregate Functions",
-      "subject": "Database Engineering",
-      "description": "In Class - Deadline: Sep 5, 2026, 10:10 am",
-      "dueDate": "2026-09-05T10:10:00",
+      "id": "asgn-de-1",
+      "title": "LIMIT, SQL Functions, Aggregate Functions, String Functions",
+      "subject": "Database Engineering (DE)",
+      "description": "In Class Practice · Sep 5, 2026, 10:10 am",
+      "dueDate": "Sep 5, 2026, 10:10 am",
       "status": "todo",
-      "priority": "high"
+      "priority": "high",
+      "tag": "In Class",
+      "solvedText": "0 / 7 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
     },
     {
-      "id": "asgn-2",
-      "title": "Express JS, REST API(s), Resource Based URL(s)",
-      "subject": "Backend Engineering",
-      "description": "In Class - Due tomorrow",
-      "dueDate": "2026-09-05T23:59:00",
+      "id": "asgn-asd-2",
+      "title": "Express JS, Express.js Request, Response, Static Routes",
+      "subject": "Applied Software Dev (ASD)",
+      "description": "In Class · Sep 5, 2026, 11:02 am",
+      "dueDate": "Sep 5, 2026, 11:02 am",
       "status": "todo",
-      "priority": "high"
+      "priority": "high",
+      "tag": "In Class",
+      "solvedText": "0 / 3 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
     },
     {
-      "id": "asgn-3",
-      "title": "HAVING Clause, SQL Conditional Logic, CASE Statements",
-      "subject": "Database Engineering",
-      "description": "Post Class practice exercises",
-      "dueDate": "2026-09-06T18:00:00",
+      "id": "asgn-ada-3",
+      "title": "Backtracking - In Class",
+      "subject": "Algorithms (ADA)",
+      "description": "In Class · Sep 5, 2026, 12:53 pm",
+      "dueDate": "Sep 5, 2026, 12:53 pm",
       "status": "in_progress",
-      "priority": "medium"
+      "priority": "high",
+      "tag": "In Class",
+      "solvedText": "1 / 2 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
     },
     {
-      "id": "asgn-4",
-      "title": "Backtracking & Recursion Practice",
-      "subject": "Data Structures & Algorithms",
-      "description": "N-Queens, Combinations, and Maze Solver",
-      "dueDate": "2026-09-07T23:59:00",
+      "id": "asgn-ada-4",
+      "title": "Backtracking - Post Class Exercises",
+      "subject": "Algorithms (ADA)",
+      "description": "Post Class · Sep 5, 2026",
+      "dueDate": "Sep 5, 2026, 11:59 pm",
       "status": "todo",
-      "priority": "medium"
+      "priority": "medium",
+      "tag": "Post Class",
+      "solvedText": "0 / 1 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
+    },
+    {
+      "id": "asgn-de-5",
+      "title": "HAVING Clause, SQL Conditional Logic, CASE Statements",
+      "subject": "Database Engineering (DE)",
+      "description": "Post Class · Sep 8, 2026, 2:35 pm",
+      "dueDate": "Sep 8, 2026, 2:35 pm",
+      "status": "todo",
+      "priority": "medium",
+      "tag": "Post Class",
+      "solvedText": "0 / 3 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
+    },
+    {
+      "id": "asgn-quiz-6",
+      "title": "M3 Contest 1 (Quiz Assessment)",
+      "subject": "Exam Sem 3",
+      "description": "Quiz Evaluation · Sep 4, 2026",
+      "dueDate": "Sep 4, 2026, 12:30 pm",
+      "status": "todo",
+      "priority": "high",
+      "tag": "Quiz",
+      "solvedText": "0 / 15 Solved",
+      "solveUrl": "https://my.newtonschool.co/course/0rsk0a0teyqh/details"
     }
   ],
-  "syncedAt": 1788437000000
+  "syncedAt": 1788971286012
 }

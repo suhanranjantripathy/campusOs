@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,27 +31,32 @@ export default function DashboardPage() {
   } = useCampusStore();
 
   const { activeTrackId, getTrackCompletion, getCurrentMilestoneForTrack } = useMilestonesStore();
+
+  // ── Mounted guard: prevents hydration mismatches from localStorage-persisted
+  // Zustand state and time-based values that differ between SSR and client. ──
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    syncAll();
+  }, []);
+
+  // All values below are safe to compute on both server and client because
+  // they are either stable or hidden behind the `mounted` flag in JSX.
   const activeTrackObj = MILESTONE_TRACKS.find((t) => t.id === activeTrackId) || MILESTONE_TRACKS[0];
   const { percentage: milestonePercentage, completedCount: milestoneCompletedCount } = getTrackCompletion(activeTrackId);
   const currentMilestoneCode = getCurrentMilestoneForTrack(activeTrackId);
 
-  useEffect(() => {
-    syncAll();
-  }, []);
-
   const pendingAssignments = assignments.filter((a) => a.status !== "completed");
   const overallAttendance = attendance?.overall ?? null;
-  const studentName =
-    profile?.name && profile.name !== "Sanghamitra Sarangi"
-      ? profile.name
-      : "Suhan Ranjan Tripathy";
+  const studentName = profile?.name || "Suhan Ranjan Tripathy";
   const firstName = studentName.split(" ")[0];
 
-  const hour = new Date().getHours();
-  const greeting =
-    hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+  // Time-based values — computed lazily after mount only
+  const greeting = mounted
+    ? (() => { const h = new Date().getHours(); return h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening"; })()
+    : "Hello";
 
-  const lastSynced = lastSyncedAt
+  const lastSynced = mounted && lastSyncedAt
     ? new Date(lastSyncedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : null;
 
@@ -153,13 +158,13 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold flex items-center gap-2">
-              <span>{currentMilestoneCode}</span>
+              <span>{mounted ? currentMilestoneCode : "—"}</span>
               <span className="text-sm font-medium text-muted-foreground">
-                ({milestonePercentage}%)
+                ({mounted ? milestonePercentage : 0}%)
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-1 truncate">
-              {activeTrackObj.name} · {milestoneCompletedCount}/5 Cleared
+              {activeTrackObj.name} · {mounted ? milestoneCompletedCount : 0}/5 Cleared
             </p>
           </CardContent>
         </Card>

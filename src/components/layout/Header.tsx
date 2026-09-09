@@ -8,10 +8,7 @@ import { useCampusStore } from "@/store/campusStore";
 
 export function Header() {
   const { profile, lastSyncedAt } = useCampusStore();
-  const studentName =
-    profile?.name && profile.name !== "Sanghamitra Sarangi"
-      ? profile.name
-      : "Suhan Ranjan Tripathy";
+  const studentName = profile?.name || "Suhan Ranjan Tripathy";
 
   const getInitials = (name: string) => {
     const parts = name.trim().split(/\s+/).filter(Boolean);
